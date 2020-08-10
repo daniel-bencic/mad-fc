@@ -1,6 +1,7 @@
 	.syntax unified
 
 /* Create vector table */
+	.align 2
 	.section .vector_table
 	.long __stack_init		/* 0x00000000 Initial value of SP register */
 	.long Reset_handler		/* 0x00000004 */
@@ -21,6 +22,8 @@
 	/* ISRs */
 	.long Default_handler		/* 0x00000040 */
 
+	.text
+	.align 1
 	.type Reset_handler, %function
 	.globl Reset_handler
 Reset_handler:
@@ -45,13 +48,14 @@ loop1:
 	STRLT R0, [R2], #4
 	BLT loop1
 
-	BL main
+	.align 2
+	BL __main
 
 	.align 1
 	.type Default_handler, %function
 	.weak Default_handler
 Default_handler:
-	b .
+	B .
 
 	.macro def_handler name
 	.weak \name

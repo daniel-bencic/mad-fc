@@ -1,9 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-int main(int argc, char **argv)
+void main()
 {
-	printf("Hello, world!");
-
-	return EXIT_SUCCESS;
+	while (1);
 }

@@ -27,10 +27,10 @@
 	.type Reset_handler, %function
 	.globl Reset_handler
 Reset_handler:
+/* Copy .data from FLASH to SRAM */
 	LDR R1, =__etext
 	LDR R2, =__data_start__
 	LDR R3, =__data_end__
-/* Copy .data from FLASH to SRAM */
 loop0:	
 	CMP R2, R3
 	ITTT LT
@@ -38,9 +38,9 @@ loop0:
 	STRLT R0, [R2], #4
 	BLT loop0
 
+/* Zero .bss section */
 	LDR R2, =__bss_start__
 	LDR R3, =__bss_end__
-/* Zero .bss section */
 	MOV R0, 0
 loop1:
 	CMP R2, R3
@@ -48,7 +48,6 @@ loop1:
 	STRLT R0, [R2], #4
 	BLT loop1
 
-	.align 2
 	BL __main
 
 	.align 1

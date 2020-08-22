@@ -35,10 +35,11 @@ SECTIONS
 		__bss_start__ = .;
 		
 		*(.bss)
+		*(COMMON)
 		
 		. = ALIGN(4);
 		__bss_end__ = .;
 	} >SRAM
 
-	__stack_init = ORIGIN(SRAM) + LENGTH(SRAM) - 4;
+	__stack_init = ORIGIN(SRAM) + LENGTH(SRAM) - 8;
 }

@@ -28,6 +28,11 @@ $(BINDIR):
 $(OBJDIR):
 	mkdir $(OBJDIR)
 
+.PHONY: load
+load:
+	openocd -f /usr/share/openocd/scripts/board/stm32f7discovery.cfg
+
+
 .PHONY: clean
 clean:
 	rm -rf bin obj *.o

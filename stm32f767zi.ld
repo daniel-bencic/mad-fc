@@ -12,7 +12,7 @@ SECTIONS
 	{
 		. = ALIGN(4);
 		*(.vector_table)
-		*(.text*)
+		*(.text)
 		*(.rodata)
 	} >FLASH
 

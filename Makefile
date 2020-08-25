@@ -7,7 +7,7 @@ OBJS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(wildcard $(SRCDIR)/*.c))
 
 ARM = cortex-m7
 CC = arm-none-eabi-gcc
-CFLAGS = -Wall -Wextra -Os -mthumb -mcpu=$(ARM) -mfloat-abi=hard -mfpu=fpv5-d16
+CFLAGS = -Wall -Wextra -O0 -mthumb -mcpu=$(ARM) -mfloat-abi=hard -mfpu=fpv5-d16
 
 LDFLAGS = -nostdlib -T stm32f767zi.ld
 

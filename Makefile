@@ -3,7 +3,9 @@ BINDIR := bin
 OBJDIR := obj
 IDIRS := -Iinclude
 SRCDIR := src
-OBJS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(wildcard $(SRCDIR)/*.c))
+DRIVERSDIR := drivers
+SRCOBJS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/$(SRCDIR)/%.o,$(wildcard $(SRCDIR)/*.c))
+DRIVERSOBJS := $(patsubst $(DRIVERSDIR)/%.c,$(OBJDIR)/$(DRIVERSDIR)/%.o,$(wildcard $(DRIVERSDIR)/*.c))
 
 ARM = cortex-m7
 CC = arm-none-eabi-gcc
@@ -13,10 +15,13 @@ LDFLAGS = -nostdlib -T stm32f767zi.ld
 
 all: $(TGT)
 
-$(TGT): $(OBJS) stm32f767zi.o | $(BINDIR)
+$(TGT): $(SRCOBJS) $(DRIVERSOBJS) stm32f767zi.o | $(BINDIR)
 	$(CC) -o $(BINDIR)/$@ $^ $(LDFLAGS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+$(OBJDIR)/$(SRCDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR)
+	$(CC) -c -o $@ $< $(CFLAGS) $(IDIRS)
+
+$(OBJDIR)/$(DRIVERSDIR)/%.o: $(DRIVERSDIR)/%.c | $(OBJDIR)
 	$(CC) -c -o $@ $< $(CFLAGS) $(IDIRS)
 
 stm32f767zi.o: stm32f767zi.s
@@ -26,7 +31,8 @@ $(BINDIR):
 	mkdir $(BINDIR)
 
 $(OBJDIR):
-	mkdir $(OBJDIR)
+	mkdir -p $(OBJDIR)/$(SRCDIR)
+	mkdir -p $(OBJDIR)/$(DRIVERSDIR)
 
 .PHONY: load
 load:

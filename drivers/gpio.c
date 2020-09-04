@@ -24,7 +24,7 @@ void
 gpio_write (struct gpio *io,
 	    enum signal  sig)
 {
-	/* Configure GPIO pin */ 
+	/* Set or reset output bit */ 
 	struct GPIO_r *rg = (struct GPIO_r *)(AHB1_BASE + 0x400UL * io->port);
 
 	if (sig == HIGH)

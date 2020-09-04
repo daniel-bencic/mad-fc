@@ -24,10 +24,10 @@ struct gpio {
 };
 
 struct gpio_config {
-	unsigned long mode;
-	unsigned long outtype;
-	unsigned long speed;
-	unsigned long pull;
+	unsigned char mode;
+	unsigned char outtype;
+	unsigned char speed;
+	unsigned char pull;
 };
 
 void gpio_init_port (enum gpio_port port);

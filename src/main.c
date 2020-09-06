@@ -3,11 +3,7 @@
 
 void __main(void)
 {
-	gpio_init_port(PORTB);
-	
-	struct gpio ld1;
-	ld1.port = PORTB;
-	ld1.pin = 0;
+	RCC->AHB1ENR |= RCC_GPIOBEN_MSK;
 
 	struct gpio_config c;
 	c.mode = GPIO_MODE_OUT;
@@ -15,12 +11,12 @@ void __main(void)
 	c.speed = GPIO_OSPEED_L;
 	c.pull = GPIO_PUPD_N;
 
-	gpio_init_pin(&ld1, &c);
+	gpio_init_pin(GPIOB, 0, &c);
 
 	while(1) {
-		gpio_write(&ld1, HIGH);
+		gpio_write(GPIOB, 0, HIGH);
 		for (int i = 0; i < 1000000; i++);
-		gpio_write(&ld1, LOW);
+		gpio_write(GPIOB, 0, LOW);
 		for (int i = 0; i < 1000000; i++);
 	}
 }

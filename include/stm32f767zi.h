@@ -23,19 +23,19 @@ struct GPIO_r {
 };
 
 /* GPIO options */
-#define GPIO_MODE_IN		(0b00U)
-#define GPIO_MODE_OUT		(0b01U)
-#define GPIO_MODE_AF		(0b10U)
-#define GPIO_MODE_AN		(0b11U)
-#define GPIO_OTYPE_PP		(0b0U)
-#define GPIO_OTYPE_OD		(0b1U)
-#define GPIO_OSPEED_L		(0b00U)
-#define GPIO_OSPEED_M		(0b01U)
-#define GPIO_OSPEED_H		(0b10U)
-#define GPIO_OSPEED_VH		(0b11U)
-#define GPIO_PUPD_N		(0b00U)
-#define GPIO_PUPD_U		(0b01U)
-#define GPIO_PUPD_D		(0b10U)
+#define GPIO_MODE_IN		(0b00)
+#define GPIO_MODE_OUT		(0b01)
+#define GPIO_MODE_AF		(0b10)
+#define GPIO_MODE_AN		(0b11)
+#define GPIO_OTYPE_PP		(0b0)
+#define GPIO_OTYPE_OD		(0b1)
+#define GPIO_OSPEED_L		(0b00)
+#define GPIO_OSPEED_M		(0b01)
+#define GPIO_OSPEED_H		(0b10)
+#define GPIO_OSPEED_VH		(0b11)
+#define GPIO_PUPD_N		(0b00)
+#define GPIO_PUPD_U		(0b01)
+#define GPIO_PUPD_D		(0b10)
 
 /* RCC registers */
 struct RCC_r {
@@ -93,12 +93,54 @@ struct RCC_r {
 	__RW unsigned int DCKCFGR2;	/* 0x90 */
 };
 
+/* RCC masks */
+#define RCC_GPIOAEN_MSK	1
+#define RCC_GPIOBEN_MSK	(1 <<  1)
+#define RCC_GPIOCEN_MSK	(1 <<  2)
+#define RCC_GPIODEN_MSK	(1 <<  3)
+#define RCC_GPIOEEN_MSK	(1 <<  4)
+#define RCC_GPIOFEN_MSK	(1 <<  5)
+#define RCC_GPIOGEN_MSK	(1 <<  6)
+#define RCC_GPIOHEN_MSK	(1 <<  7)
+#define RCC_GPIOIEN_MSK	(1 <<  8)
+#define RCC_GPIOJEN_MSK	(1 <<  9)
+#define RCC_GPIOKEN_MSK	(1 << 10)
 
-/* ADDRESSES */
+
+/* Bus base addresses */
 #define PERIPH_BASE	0x40000000U
+#define APB1_BASE	PERIPH_BASE
+#define APB2_BASE	(PERIPH_BASE + 0x00010000U)
 #define AHB1_BASE	(PERIPH_BASE + 0x00020000U)
-#define RCC_BASE	(AHB1_BASE + 0x03800U)
+#define AHB2_BASE	(PERIPH_BASE + 0x10000000U)
+#define AHB3_BASE	(PERIPH_BASE + 0x60000000U)
 
+/* Peripheral base addresses */
+#define GPIOA_BASE	AHB1_BASE
+#define GPIOB_BASE	(AHB1_BASE + 0x0400U)
+#define GPIOC_BASE	(AHB1_BASE + 0x0800U)
+#define GPIOD_BASE	(AHB1_BASE + 0x0C00U)
+#define GPIOE_BASE	(AHB1_BASE + 0x1000U)
+#define GPIOF_BASE	(AHB1_BASE + 0x1400U)
+#define GPIOG_BASE	(AHB1_BASE + 0x1800U)
+#define GPIOH_BASE	(AHB1_BASE + 0x1C00U)
+#define GPIOI_BASE	(AHB1_BASE + 0x2000U)
+#define GPIOJ_BASE	(AHB1_BASE + 0x2400U)
+#define GPIOK_BASE	(AHB1_BASE + 0x2800U)
+#define RCC_BASE	(AHB1_BASE + 0x3800U)
+
+/* Struct pointers */
+#define GPIOA		((struct GPIO_r *)GPIOA_BASE)
+#define GPIOB		((struct GPIO_r *)GPIOB_BASE)
+#define GPIOC		((struct GPIO_r *)GPIOC_BASE)
+#define GPIOD		((struct GPIO_r *)GPIOD_BASE)
+#define GPIOE		((struct GPIO_r *)GPIOE_BASE)
+#define GPIOF		((struct GPIO_r *)GPIOF_BASE)
+#define GPIOG		((struct GPIO_r *)GPIOG_BASE)
+#define GPIOH		((struct GPIO_r *)GPIOH_BASE)
+#define GPIOI		((struct GPIO_r *)GPIOI_BASE)
+#define GPIOJ		((struct GPIO_r *)GPIOJ_BASE)
+#define GPIOK		((struct GPIO_r *)GPIOK_BASE)
 #define RCC		((struct RCC_r *)RCC_BASE)
 
 #endif /* STM32F767ZI_H */
